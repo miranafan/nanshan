@@ -1,0 +1,17 @@
+# ****************************************
+# Nanshan 服务
+# Spring 配置文件
+# 20180222
+# ****************************************
+
+spring:
+  application:
+    name: nanshan-service
+
+server:
+  port: 2222
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/

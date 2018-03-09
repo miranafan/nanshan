@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别 从左显示5个字符宽度  %msg：日志消息，%n是换行符-->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSSS} - [thread:%thread] - [level:%-5level] - [%class : %method : %line] - %m%n"/>
+    <property name="FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSSS} - [thread:%thread] - [level:%-5level] - [%class : %method : %line] - %m%n"/>
+
+    <property name="LOG_FILE_PATH" value="/Users/mirana/Documents/NanShan/logs/nanshan-info.log"/>
+    <property name="APPENFER_NAME_CONSOLE" value="CONSOLE"/>
+    <property name="APPENDER_NAME_FILE" value="FILE"/>
+    <property name="SPRING_PROFILE_TESR" value="test"/>
+    <property name="ROOT_LOG_LEVEL" value="error"/>
+
+    <!-- 输出到控制台的日志的 格式 以及 使用的 字符集-->
+    <appender name="${APPENFER_NAME_CONSOLE}" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 日志文件 分隔保存的策略,基于 大小和日期的方式 分隔-->
+    <appender name="${APPENDER_NAME_FILE}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--#日志文件 输出的文件名的格式 以及归档的分隔方式-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_FILE_PATH}.%d{yyyy-MM-dd HH:mm:ss}-%i</FileNamePattern>
+            <MaxHistory>1</MaxHistory>
+            <maxFileSize>1MB</maxFileSize>
+            <totalSizeCap>2MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="${ROOT_LOG_LEVEL}">
+        <appender-ref ref="${APPENFER_NAME_CONSOLE}"/>
+        <!--<appender-ref ref="${APPENDER_NAME_FILE}"/>-->
+    </root>
+</configuration>
